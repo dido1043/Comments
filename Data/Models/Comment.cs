@@ -6,6 +6,5 @@
         public string CommentText { get; set; }
         public DateTime PublicationDate { get; set; }
 
-
     }
 }

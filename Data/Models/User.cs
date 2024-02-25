@@ -4,6 +4,7 @@ namespace Comments.Data.Models
 {
     public class User : IdentityUser
     {
-        IList<UserLoginInfo> Logins { get; set; }
+        IList<Comment> Comments { get; set; }
+        = new List<Comment>();
     }
 }
