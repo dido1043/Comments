@@ -1,6 +1,8 @@
 ﻿using Comments.Data;
+using Comments.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Comments.Controllers
 {
@@ -13,10 +15,16 @@ namespace Comments.Controllers
             _context = data;
         }
         [HttpGet]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-           // var model = _context.UserComments.Select(u => u.Comment);
-            return View();
+            var model = await _context.Comments.Select(c => new AllCommentsViewModel(
+                    c.Id,
+                    c.CommentText,
+                    c.PublicationDate.ToString(Constants.DateTimeFormat),
+                    c.User.UserName
+                )).ToListAsync();
+
+            return View(model);
         }
     }
 }

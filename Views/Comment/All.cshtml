@@ -1,11 +1,16 @@
-﻿@{
+﻿@using Comments.Models.ViewModels
+@model IList<AllCommentsViewModel>;
+@{
     ViewBag.Title = "All comments";
 }
 
 <h1>All comments</h1>
 </hr>
-<div>
-    <p>Comment</p>
-    <p>Author</p>
-    <p>Publishing date</p>
-</div>
+@foreach (var c in Model)
+{
+    <div>
+        <p>@c.Text</p>
+        <p>@c.Author</p>
+        <p>@c.Date</p>
+    </div>
+}
