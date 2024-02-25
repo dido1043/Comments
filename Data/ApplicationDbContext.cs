@@ -11,14 +11,5 @@ namespace Comments.Data
         {
         }
         public DbSet<Comment> Comments { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<UserComments>()
-                .HasKey(x => new { x.UserId, x.CommentId});
-            builder.Entity<User>()
-                .Property(u => u.Email);
-
-            base.OnModelCreating(builder);
-        }
     }
 }
