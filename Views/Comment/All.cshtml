@@ -4,13 +4,17 @@
     ViewBag.Title = "All comments";
 }
 
-<h1>All comments</h1>
+<h1 class="text-center">All comments</h1>
 </hr>
-@foreach (var c in Model)
-{
-    <div>
-        <p>@c.Text</p>
-        <p>@c.Author</p>
-        <p>@c.Date</p>
-    </div>
-}
+<div class="text-center row">
+    @foreach (var c in Model)
+    {
+        <div class="card row-4" style="width: 20rem; ">
+            <div>
+                <h5>@c.Text</h5>
+                <p>@c.Author</p>
+                <p>@c.Date</p>
+            </div>
+        </div>
+    }
+</div>
