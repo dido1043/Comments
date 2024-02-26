@@ -27,7 +27,11 @@ namespace Comments.Controllers
 
             return View(model);
         }
- 
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Add(AddViewModel model)
         {
