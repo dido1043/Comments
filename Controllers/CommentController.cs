@@ -3,6 +3,7 @@ using Comments.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Comments.Controllers
 {
@@ -31,6 +32,11 @@ namespace Comments.Controllers
         public async Task<IActionResult> Add(AddViewModel model)
         {
             return View();
+        }
+
+        public string GetUser()
+        {
+            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
         }
     }
 }
