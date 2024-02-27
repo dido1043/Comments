@@ -57,6 +57,8 @@ namespace Comments.Controllers
             return RedirectToAction("All", "Comment");
         }
 
+
+
         public string GetUser()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
