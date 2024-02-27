@@ -1,4 +1,5 @@
 ﻿using Comments.Data;
+using Comments.Data.Models;
 using Comments.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +32,29 @@ namespace Comments.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            return View();
+            var form = new AddViewModel();
+
+            return View(form);
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AllCommentsViewModel model)
+        public async Task<IActionResult> Add(AddViewModel model)
         {
             DateTime dateAndTime = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            
-            return View();
+            var entity = new Comment()
+            {
+                CommentText = model.Text, 
+                PublicationDate = dateAndTime,
+                UserId = GetUser()
+            };
+
+            await _context.Comments.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("All", "Comment");
         }
 
         public string GetUser()
