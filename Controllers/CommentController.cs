@@ -51,7 +51,6 @@ namespace Comments.Controllers
                 PublicationDate = dateAndTime,
                 UserId = GetUser()
             };
-
             await _context.Comments.AddAsync(entity);
             await _context.SaveChangesAsync();
             return RedirectToAction("All", "Comment");

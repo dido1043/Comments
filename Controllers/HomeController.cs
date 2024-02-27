@@ -13,13 +13,12 @@ namespace Comments.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
+            if (User.Identity.IsAuthenticated && User?.Identity != null)
+            {
+                return RedirectToAction("All", "Comment");
+            }
             return View();
         }
 
