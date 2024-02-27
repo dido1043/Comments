@@ -3,6 +3,7 @@ using Comments.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace Comments.Controllers
@@ -33,8 +34,11 @@ namespace Comments.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddViewModel model)
+        public async Task<IActionResult> Add(AllCommentsViewModel model)
         {
+            DateTime dateAndTime = DateTime.Now;
+
+            
             return View();
         }
 
