@@ -56,7 +56,28 @@ namespace Comments.Controllers
             return RedirectToAction("All", "Comment");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var c = await _context.Comments.FindAsync(id);
+            if (c.UserId != GetUser())
+            {
+                return Unauthorized();
+            }
 
+            if (c == null)
+            {
+                return BadRequest();
+            }
+
+            var model = new AddViewModel()
+            {
+                Text = c.CommentText,
+                Author = c.User.UserName,
+                Date = c.PublicationDate.ToString(Constants.DateTimeFormat),
+            };
+            return View(model);
+        }
 
         public string GetUser()
         {
