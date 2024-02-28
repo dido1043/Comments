@@ -4,7 +4,6 @@ using Comments.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using System.Security.Claims;
 
 namespace Comments.Controllers
@@ -32,12 +31,12 @@ namespace Comments.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var form = new AddViewModel();
+            var form = new FormViewModel();
 
             return View(form);
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddViewModel model)
+        public async Task<IActionResult> Add(FormViewModel model)
         {
             DateTime dateAndTime = DateTime.Now;
             if (ModelState.IsValid)
@@ -70,13 +69,29 @@ namespace Comments.Controllers
                 return BadRequest();
             }
 
-            var model = new AddViewModel()
+            var model = new FormViewModel()
             {
                 Text = c.CommentText,
-                Author = c.User.UserName,
-                Date = c.PublicationDate.ToString(Constants.DateTimeFormat),
             };
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(FormViewModel formModel,int id)
+        {
+            var entity = await _context.Comments.FindAsync(id);
+            if (entity.UserId != GetUser())
+            {
+                return Unauthorized();
+            }
+
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+
+            entity.CommentText = formModel.Text;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("All", "Comment");
         }
 
         public string GetUser()

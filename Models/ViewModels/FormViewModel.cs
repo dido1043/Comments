@@ -1,6 +1,6 @@
 ﻿namespace Comments.Models.ViewModels
 {
-    public class AddViewModel
+    public class FormViewModel
     {
         public string Text { get; set; }
 
