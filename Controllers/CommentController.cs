@@ -93,7 +93,24 @@ namespace Comments.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("All", "Comment");
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var entity = await _context.Comments.FindAsync(id);
+            if (entity.UserId != GetUser())
+            {
+                return Unauthorized();
+            }
 
+            if (entity == null)
+            {
+                await Console.Out.WriteLineAsync("Invalid post");
+            }
+
+            _context.Comments.Remove(entity);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("All", "Comment");
+        }
         public string GetUser()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
