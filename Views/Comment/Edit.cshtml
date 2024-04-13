@@ -1,9 +1,9 @@
 ﻿@using Comments.Models.ViewModels
 @model FormViewModel
-
+<h1>Редактиране</h1>
 <form asp-action="Edit" method="post">
     <div class="mb-3">
-        <label asp-for="@Model.Text" class="form-label-add-edit">Seminar Topic</label>
+        <label asp-for="@Model.Text" class="form-label-add-edit">Коментар</label>
         <input asp-for="@Model.Text" class="form-control" aria-required="true" />
         <span asp-validation-for="@Model.Text" class="text-danger"></span>
     </div>
