@@ -11,5 +11,6 @@ namespace Comments.Data
         {
         }
         public DbSet<Comment> Comments { get; set; }
+
     }
 }

@@ -12,6 +12,7 @@ namespace Comments.Data.Models
         public string CommentText { get; set; }
         [Required]
         public DateTime PublicationDate { get; set; }
+
         [Required]
         public string UserId { get; set; }
         [Required]
